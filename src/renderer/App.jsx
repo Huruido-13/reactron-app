@@ -1,64 +1,102 @@
 import React from 'react'
 import { hot } from 'react-hot-loader/root'
-import logo from './assets/logo.svg'
-import './App.css'
-import { remote } from 'electron'
 
-const App = () => {
-  const electron = process.versions.electron
-  const node = process.versions.node
-  const platform = require('os').platform()
-  const version = require('../../package.json').version
+class App extends React.Component {
+  render() {
+    return (
+      <div>
+        <nav className="navibar bg-primary mb-4">
+          <h1 className="display-4 text-light">Reactron-app</h1>
+        </nav>
+        <div className="container text-primary">
+          <h2>App Component</h2>
+          <p>This is App class component.</p>
+          <Content />
+        </div>
+      </div>
+    )
+  }
+}
 
-  const handleLinkClick = e => {
-    e.preventDefault()
-    remote.shell.openExternal(e.currentTarget.href)
+// class Content extends React.Component {
+//   constructor() {
+//     super()
+//     this.title = 'Hello Component'
+//     this.message = 'This is Sample Component'
+//     this.classname = 'alert alert-warning'
+//   }
+
+//   render() {
+//     return (
+//       <div className={this.classname}>
+//         <h2>{this.title}</h2>
+//         <p>{this.message}</p>
+//       </div>
+//     )
+//   }
+// }
+
+// class Content extends React.Component {
+//   constructor(props) {
+//     super(props)
+//     this.flg = true
+//     this.title = 'Hello Component'
+//     this.state = {
+//       classname: 'alert alert-warning',
+//       message: 'This is Sample Component'
+//     }
+//     setInterval(() => {
+//       if (this.flg) {
+//         this.setState(() => ({
+//           classname: 'alert alert-light',
+//           message: 'This is light alert sample'
+//         }))
+//       } else {
+//         this.setState(() => ({
+//           classname: 'alert alert-warning',
+//           message: 'This is warning alert'
+//         }))
+//       }
+//       this.flg = !this.flg
+//     }, 1000)
+//   }
+
+//   render() {
+//     return (
+//       <div className={this.state.classname}>
+//         <h2>{this.title}</h2>
+//         <p>{this.state.message}</p>
+//       </div>
+//     )
+//   }
+// }
+
+class Content extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      count: 0
+    }
+    this.doAction = this.doAction.bind(this)
   }
 
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <ul className="App-info">
-          <li>
-            electron: <span>{electron}</span>
-          </li>
-          <li>
-            node: <span>{node}</span>
-          </li>
-          <li>
-            platform: <span>{platform}</span>
-          </li>
-          <li>
-            version: <span>{version}</span>
-          </li>
-        </ul>
-        <p>
-          Edit <code>src/renderer/App.tsx</code> and save to reload.
-        </p>
-        <div>
-          <a
-            onClick={handleLinkClick}
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-          <a
-            onClick={handleLinkClick}
-            className="App-link"
-            href="https://electronjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn Electron
-          </a>
+  doAction(e) {
+    this.setState(state => ({
+      count: state.count + 1
+    }))
+  }
+
+  render() {
+    return (
+      <div className="container">
+        <div className="alert alert-primary">
+          <h2>App Component {this.state.count}</h2>
+          <p>This is App-Class component!</p>
+          <button className="btn btn-primary" onClick={this.doAction}>Click</button>
         </div>
-      </header>
-    </div>
-  )
+      </div>
+    )
+  }
 }
 
 export default hot(App)
