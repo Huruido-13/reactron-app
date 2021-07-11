@@ -71,30 +71,76 @@ class App extends React.Component {
 //   }
 // }
 
+// class Content extends React.Component {
+//   constructor(props) {
+//     super(props)
+//     this.state = {
+//       count: 0
+//     }
+//     this.doAction = this.doAction.bind(this)
+//   }
+
+//   doAction(e) {
+//     this.setState(state => ({
+//       count: state.count + 1
+//     }))
+//   }
+
+//   render() {
+//     return (
+//       <div className="container">
+//         <div className="alert alert-primary">
+//           <h2>App Component {this.state.count}</h2>
+//           <p>This is App-Class component!</p>
+//           <button className="btn btn-primary" onClick={this.doAction}>Click</button>
+//         </div>
+//       </div>
+//     )
+//   }
+// }
+
 class Content extends React.Component {
   constructor(props) {
     super(props)
+    this.fieldvalue = ''
     this.state = {
-      count: 0
+      data: []
     }
     this.doAction = this.doAction.bind(this)
+    this.doChange = this.doChange.bind(this)
   }
 
   doAction(e) {
+    this.state.data.push(this.fieldvalue)
     this.setState(state => ({
-      count: state.count + 1
+      data: state.data
     }))
+  }
+  
+  doChange(e) {
+    this.fieldvalue = e.target.value
   }
 
   render() {
     return (
       <div className="container">
         <div className="alert alert-primary">
-          <h2>App Component {this.state.count}</h2>
+          <h2>Content Component {this.state.count}</h2>
           <p>This is App-Class component!</p>
-          <button className="btn btn-primary" onClick={this.doAction}>Click</button>
+          <ul className="list-group">
+            {this.state.data.map((val) => (
+              <li key="{val}" className="list-group-item">{val}</li>
+            ))}
+          </ul>
+          <hr />
+          <div className="row m-0">
+            <input type="text" className="form-control col-10"
+              onChange={this.doChange} />
+            <button className="btn btn-primary col-2" onClick={this.doAction}>
+              click</button>
+            </div>
+          </div>
         </div>
-      </div>
     )
   }
 }
